@@ -1,6 +1,6 @@
-<div class="notification" data-component="notification" data-type="{{ type or 'info' }}" role="alert">
-  
-  <span class="notification__accent"></span>
-  <span class="notification__content"></span>
-
+{% macro notification(options = {}) %}
+<div class="notification" data-component="notification" data-type="{{ options.type or 'info' }}" role="alert">
+  <span class="notification__accent" aria-hidden="true"></span>
+  <span class="notification__content">{{ options.message or 'Notification message' }}</span>
 </div>
+{% endmacro %}

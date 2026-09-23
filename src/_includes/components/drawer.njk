@@ -1,16 +1,14 @@
-<aside class="drawer" data-component="drawer" data-state="closed" aria-label="Side drawer">
-  
-  <div class="drawer__overlay"></div>
-
-  <div class="drawer__panel" role="dialog" aria-modal="true">
-    
-    <button class="drawer__close" type="button" aria-label="Close">×</button>
-
+{% macro drawer(options = {}) %}
+<aside class="drawer" id="{{ options.id or 'drawer' }}" data-component="drawer" data-state="closed">
+  <div class="drawer__overlay" data-action="close"></div>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="{{ options.id or 'drawer' }}-title">
+    <button class="drawer__close" type="button" data-action="close" aria-label="Close drawer">×</button>
     <div class="drawer__content">
-      <h2 class="drawer__title"></h2>
-      <div class="drawer__body"></div>
+      <h2 class="drawer__title" id="{{ options.id or 'drawer' }}-title">{{ options.title or 'Drawer title' }}</h2>
+      <div class="drawer__body">
+        {%- if caller %}{{ caller() }}{% else %}<p>Drawer body content</p>{% endif -%}
+      </div>
     </div>
-
   </div>
-
 </aside>
+{% endmacro %}

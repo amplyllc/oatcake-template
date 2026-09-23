@@ -1,0 +1,32 @@
+---
+layout: base
+title: Components
+description: Every component rendered with its descriptive placeholders.
+---
+{#- Doubles as a smoke test: the build fails here if any macro stops compiling. -#}
+{% from "components/announcement.njk" import announcement %}
+{% from "components/hero.njk" import hero %}
+{% from "components/event-card.njk" import eventCard %}
+{% from "components/cta-section.njk" import ctaSection %}
+{% from "components/gallery.njk" import gallery %}
+{% from "components/linktree.njk" import linktree %}
+{% from "components/shortcuts-grid.njk" import shortcutsGrid %}
+{% from "components/blog-post.njk" import blogPost %}
+{% from "components/drawer.njk" import drawer %}
+{% from "components/notification.njk" import notification %}
+{% from "components/tiktok-feed.njk" import tiktokFeed %}
+{% from "partials/section-wrapper.njk" import section %}
+
+{{ announcement() }}
+{{ hero() }}
+{% call section() %}
+  <div class="grid-3">{{ eventCard() }}{{ eventCard() }}{{ eventCard() }}</div>
+{% endcall %}
+{{ ctaSection() }}
+{% call section() %}{{ gallery() }}{% endcall %}
+{% call section() %}{{ linktree() }}{% endcall %}
+{% call section() %}{{ shortcutsGrid() }}{% endcall %}
+{% call section() %}{{ blogPost() }}{% endcall %}
+{{ tiktokFeed() }}
+{{ drawer() }}
+{{ notification() }}

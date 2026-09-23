@@ -1,15 +1,11 @@
-<section class="cta" data-component="cta-section" data-variant="{{ variant or 'default' }}">
-  
+{% macro ctaSection(item = {}) %}
+<section class="cta" data-component="cta-section" data-type="{{ item.type or 'offer' }}" data-id="{{ item.id }}" data-updated="{{ item.updated_at }}" data-purpose="{{ item.metadata.purpose if item.metadata }}">
   <div class="cta__content">
-    <h2 class="cta__headline"></h2>
-    <p class="cta__subheadline"></p>
+    <h2 class="cta__headline" data-slot="title">{{ item | slot('title', 'CTA headline') }}</h2>
+    <p class="cta__subheadline" data-slot="summary"{{ item | hidden('summary') }}>{{ item | slot('summary', 'CTA subheadline: why act now') }}</p>
   </div>
-
   <div class="cta__actions">
-    <a class="cta__button cta__button--primary" href="#"></a>
-    {% if secondaryUrl %}
-      <a class="cta__button cta__button--secondary" href="{{ secondaryUrl }}"></a>
-    {% endif %}
+    <a class="cta__button cta__button--primary" data-show="url" data-slot-href="url" href="{{ item | slot('url', '#') }}"{{ item | hidden('url') }}>CTA primary button</a>
   </div>
-
 </section>
+{% endmacro %}

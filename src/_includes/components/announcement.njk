@@ -1,15 +1,12 @@
-<div class="announcement" data-component="announcement" data-severity="{{ severity or 'info' }}" role="status" aria-live="polite">
-  
+{% macro announcement(item = {}) %}
+<div class="announcement" data-component="announcement" data-type="{{ item.type or 'announcement' }}" data-id="{{ item.id }}" data-updated="{{ item.updated_at }}" data-purpose="{{ item.metadata.purpose if item.metadata }}" role="status" aria-live="polite">
   <div class="announcement__inner">
-    {% if icon %}
-      <span class="announcement__icon"></span>
-    {% endif %}
-    
+    <span class="announcement__icon" aria-hidden="true"></span>
     <div class="announcement__content">
-      <span class="announcement__text"></span>
+      <span class="announcement__text" data-slot="title">{{ item | slot('title', 'Announcement text') }}</span>
+      <a class="announcement__link" data-show="url" data-slot-href="url" href="{{ item | slot('url', '#') }}"{{ item | hidden('url') }}>Announcement link</a>
     </div>
-
-    <button class="announcement__close" type="button" aria-label="Dismiss">×</button>
+    <button class="announcement__close" type="button" aria-label="Dismiss announcement">×</button>
   </div>
-
 </div>
+{% endmacro %}

@@ -1,0 +1,12 @@
+{
+  "title": "Template Library",
+  "description": "Structure-first 11ty + Nunjucks component library for marketing sites, web apps and native shells.",
+  "url": "https://example.com",
+  "author": "Your Name",
+  "lang": "en",
+  "locale": "en-US",
+  "timeZone": "America/New_York",
+  "sameAs": [
+    "https://github.com/yourusername"
+  ]
+}

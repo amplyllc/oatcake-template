@@ -1,17 +1,17 @@
+{#- Body comes from {% call %}, so page content is passed explicitly instead of leaking via scope. -#}
+{% macro blogPost(post = {}) %}
 <article class="blog-post" data-component="blog-post" itemscope itemtype="https://schema.org/BlogPosting">
-  
   <header class="blog-post__header">
-    <h1 class="blog-post__title" itemprop="headline"></h1>
-    <p class="blog-post__meta" itemprop="datePublished"></p>
-    {% if featuredImage %}
-      <figure class="blog-post__image">
-        <img src="{{ featuredImage }}" alt="" itemprop="image" />
-      </figure>
+    <h1 class="blog-post__title" itemprop="headline">{{ post.title or 'Post headline' }}</h1>
+    <time class="blog-post__meta" datetime="{{ post.date | dateISO }}" itemprop="datePublished">{{ post.date or 'Post publish date' }}</time>
+    {% if post.image %}
+    <figure class="blog-post__image">
+      <img src="{{ post.image }}" alt="{{ post.imageAlt or '' }}" itemprop="image">
+    </figure>
     {% endif %}
   </header>
-
   <div class="blog-post__body" itemprop="articleBody">
-    {{ content | safe }}
+    {%- if caller %}{{ caller() }}{% else %}<p>Post body: article content renders here.</p>{% endif -%}
   </div>
-
 </article>
+{% endmacro %}

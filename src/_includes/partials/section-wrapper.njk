@@ -1,7 +1,7 @@
-<section class="section" data-component="section" data-theme="{{ theme or 'default' }}">
-  
+{% macro section(theme = 'default') %}
+<section class="section" data-component="section" data-theme="{{ theme }}">
   <div class="section__container">
-    {{ content | safe }}
+    {%- if caller %}{{ caller() }}{% else %}<p>Section content</p>{% endif -%}
   </div>
-
 </section>
+{% endmacro %}
