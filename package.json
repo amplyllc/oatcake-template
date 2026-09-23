@@ -1,0 +1,32 @@
+{
+  "name": "eleventy-component-template-library",
+  "version": "1.0.0",
+  "description": "Lightweight 11ty + Nunjucks + Sass component library for marketing sites, web apps, and native mobile shells. Structure-first, CSS/JS agnostic.",
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/template-library"
+  },
+  "homepage": "https://github.com/yourusername/template-library",
+  "keywords": [
+    "eleventy",
+    "11ty",
+    "nunjucks",
+    "template-library",
+    "component-library",
+    "foss",
+    "static-site-generator",
+    "sass",
+    "mobile-first"
+  ],
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "eleventy",
+    "clean": "rm -rf _site"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "sass": "^1.69.0"
+  }
+}

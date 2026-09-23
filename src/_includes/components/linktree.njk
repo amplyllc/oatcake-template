@@ -1,0 +1,21 @@
+<section class="linktree" data-component="linktree" itemscope itemtype="https://schema.org/Person">
+  
+  <div class="linktree__container">
+    <div class="linktree__header">
+      {% if avatar %}
+        <img class="linktree__avatar" src="{{ avatar }}" alt="" itemprop="image" />
+      {% endif %}
+      <h2 class="linktree__name" itemprop="name"></h2>
+    </div>
+
+    <div class="linktree__links">
+      {% for link in links %}
+        <a class="linktree__link" href="{{ link.url }}" data-purpose="{{ link.purpose or 'link' }}" itemprop="url">
+          {% if link.icon %}<span class="linktree__icon"></span>{% endif %}
+          <span class="linktree__text"></span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+
+</section>

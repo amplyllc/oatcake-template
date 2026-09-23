@@ -1,0 +1,15 @@
+<section class="cta" data-component="cta-section" data-variant="{{ variant or 'default' }}">
+  
+  <div class="cta__content">
+    <h2 class="cta__headline"></h2>
+    <p class="cta__subheadline"></p>
+  </div>
+
+  <div class="cta__actions">
+    <a class="cta__button cta__button--primary" href="#"></a>
+    {% if secondaryUrl %}
+      <a class="cta__button cta__button--secondary" href="{{ secondaryUrl }}"></a>
+    {% endif %}
+  </div>
+
+</section>

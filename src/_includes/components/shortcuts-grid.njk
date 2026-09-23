@@ -1,0 +1,14 @@
+<section class="shortcuts-grid" data-component="shortcuts-grid">
+  
+  <div class="shortcuts-grid__container">
+    
+    {% for action in actions %}
+      <button class="shortcuts-grid__item" data-action="{{ action.id }}" type="button">
+        <span class="shortcuts-grid__icon"></span>
+        <span class="shortcuts-grid__label"></span>
+      </button>
+    {% endfor %}
+
+  </div>
+
+</section>

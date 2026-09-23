@@ -1,0 +1,15 @@
+<div class="announcement" data-component="announcement" data-severity="{{ severity or 'info' }}" role="status" aria-live="polite">
+  
+  <div class="announcement__inner">
+    {% if icon %}
+      <span class="announcement__icon"></span>
+    {% endif %}
+    
+    <div class="announcement__content">
+      <span class="announcement__text"></span>
+    </div>
+
+    <button class="announcement__close" type="button" aria-label="Dismiss">×</button>
+  </div>
+
+</div>

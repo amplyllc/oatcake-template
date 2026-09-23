@@ -1,0 +1,36 @@
+<section class="tiktok-feed" data-component="tiktok-feed">
+  
+  <div class="tiktok-feed__viewport" data-scroll="snap-y">
+    
+    {% for slide in slides %}
+      <article class="tiktok-feed__slide" data-index="{{ loop.index0 }}">
+        
+        <figure class="tiktok-feed__media">
+          <img src="{{ slide.image }}" alt="" loading="lazy" />
+        </figure>
+
+        <div class="tiktok-feed__overlay">
+          <div class="tiktok-feed__card">
+            <h3 class="tiktok-feed__title"></h3>
+            <p class="tiktok-feed__description"></p>
+          </div>
+
+          <div class="tiktok-feed__controls">
+            <button class="tiktok-feed__action" type="button" data-action="like">♡</button>
+            <button class="tiktok-feed__action" type="button" data-action="share">⤤</button>
+            <button class="tiktok-feed__action" type="button" data-action="more">⋯</button>
+          </div>
+        </div>
+
+      </article>
+    {% endfor %}
+
+  </div>
+
+  <div class="tiktok-feed__indicators">
+    {% for slide in slides %}
+      <button class="tiktok-feed__dot" data-index="{{ loop.index0 }}" aria-label="Slide {{ loop.index }}"></button>
+    {% endfor %}
+  </div>
+
+</section>

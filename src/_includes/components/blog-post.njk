@@ -1,0 +1,17 @@
+<article class="blog-post" data-component="blog-post" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <header class="blog-post__header">
+    <h1 class="blog-post__title" itemprop="headline"></h1>
+    <p class="blog-post__meta" itemprop="datePublished"></p>
+    {% if featuredImage %}
+      <figure class="blog-post__image">
+        <img src="{{ featuredImage }}" alt="" itemprop="image" />
+      </figure>
+    {% endif %}
+  </header>
+
+  <div class="blog-post__body" itemprop="articleBody">
+    {{ content | safe }}
+  </div>
+
+</article>

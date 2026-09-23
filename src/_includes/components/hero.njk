@@ -1,0 +1,19 @@
+<section class="hero" data-component="hero" data-layout="{{ layout or 'centered' }}">
+  <div class="hero__container">
+    
+    {% if image %}
+      <figure class="hero__image">
+        <img src="{{ image }}" alt="{{ imageAlt or '' }}" loading="eager" />
+      </figure>
+    {% endif %}
+
+    <div class="hero__content">
+      <h1 class="hero__headline"></h1>
+      <p class="hero__subheadline"></p>
+      {% if cta %}
+        <a class="hero__cta" href="{{ cta.url }}" data-cta-type="{{ cta.type or 'primary' }}"></a>
+      {% endif %}
+    </div>
+
+  </div>
+</section>

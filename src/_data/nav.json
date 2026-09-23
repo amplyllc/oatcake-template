@@ -1,0 +1,11 @@
+{
+  "links": [
+    { "label": "", "url": "/" },
+    { "label": "", "url": "/" },
+    { "label": "", "url": "/" }
+  ],
+  "actions": [
+    { "label": "Sign In", "url": "/auth", "style": "secondary" },
+    { "label": "Get Started", "url": "/signup", "style": "primary" }
+  ]
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="{{ lang or 'en' }}" dir="{{ direction or 'ltr' }}">
+<head>
+  <title>{{ title or 'Template Library' }}</title>
+  {% include 'head.njk' %}
+</head>
+<body>
+
+  {% include 'components/nav.njk' %}
+
+  <main id="main" role="main">
+    {{ content | safe }}
+  </main>
+
+  {% include 'partials/footer.njk' %}
+
+  <script>
+    // Placeholder for minimal JS initialization
+    document.addEventListener('DOMContentLoaded', function() {
+      // JS layer loads here (phase 2)
+    });
+  </script>
+
+</body>
+</html>
