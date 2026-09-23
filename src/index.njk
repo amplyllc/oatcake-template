@@ -1,16 +1,15 @@
 ---
 layout: landing
 title: Template Library
-description: Lightweight 11ty + Nunjucks + Sass component library for marketing sites, web apps, and native mobile shells.
+description: Structure-first 11ty + Nunjucks component library for marketing sites, web apps and native shells.
 ---
+{% from "components/hero.njk" import hero %}
+{% from "components/cta-section.njk" import ctaSection %}
 
-{% include 'components/hero.njk' %}
+{{ hero() }}
 
 <section class="py-xl">
-  <div class="container">
-    <h2>Featured Items</h2>
-    <!-- Component showcase will go here -->
-  </div>
+  <h2>Featured items</h2>
 </section>
 
-{% include 'components/cta-section.njk' %}
+{{ ctaSection() }}

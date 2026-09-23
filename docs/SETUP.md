@@ -1,264 +1,64 @@
-# Setup Guide
+# Setup
 
-Get started with Template Library in minutes.
+## Install
 
-## Prerequisites
+Requires Node.js 18+ (11ty 3).
 
-- **Node.js** 16+ ([download](https://nodejs.org/))
-- **npm** (comes with Node.js)
-- A code editor (VS Code recommended)
-
-## Installation
-
-1. **Extract the repository**
-   ```bash
-   unzip template-library.zip
-   cd template-library
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-
-   Opens at `http://localhost:8080` with live reload enabled.
-
-4. **Build for production**
-   ```bash
-   npm run build
-   ```
-
-   Outputs a static site to `_site/` folder.
+```bash
+npm install
+npm run dev     # dev server with live reload at http://localhost:8080
+npm run build   # static output in _site/
+npm run clean   # remove _site/
+```
 
 ## Configuration
 
-### Site Settings
-Edit `src/_data/global.json`:
-```json
-{
-  "title": "My Site",
-  "siteName": "My Brand",
-  "author": "Your Name",
-  "social": {
-    "twitter": "@yourhandle",
-    "github": "yourname"
-  }
-}
-```
+`src/_data/site.json`, available in templates as `site.*`:
 
-### Navigation
-Edit `src/_data/nav.json` to customize header links and buttons.
+| Key | Used for |
+|---|---|
+| `title`, `description`, `author` | `<title>`, meta, Open Graph, JSON-LD, llms.txt |
+| `url` | Canonical URLs, sitemap, robots.txt, llms.txt |
+| `lang` | `<html lang>` |
+| `locale`, `timeZone` | Date formatting |
+| `sameAs` | Organization JSON-LD `sameAs`, footer social links |
 
-### Theme Colors
-Edit `src/styles/_base.scss`:
-```scss
-:root {
-  --bg: #0f0f0f;           // Background
-  --accent: #e8622a;       // Brand color
-  --text: #fbf5f3;         // Text color
-  // ... more variables
-}
-```
+`src/_data/nav.json` holds the header links and actions. The `siteNav` macro renders them for both the desktop and mobile menus.
 
-## File Structure
-
-```
-src/
-  _includes/
-    components/       # 15+ reusable components
-    layouts/         # Page layouts
-    partials/        # Reusable fragments
-    head.njk         # SEO & metadata
-  _data/
-    global.json      # Site config
-    nav.json         # Navigation
-  styles/
-    _reset.scss      # CSS reset
-    _base.scss       # Variables & utilities
-    main.scss        # Imports
-  assets/            # Images, fonts, icons (add here)
-  index.njk          # Homepage
-
-public/              # Static files (manifest, favicon)
-docs/                # Documentation
-```
-
-## Creating a New Page
-
-1. Create a `.njk` file in `src/`:
-   ```nunjucks
-   ---
-   layout: landing
-   title: My Page
-   description: Page description
-   ---
-
-   {% include 'components/hero.njk' %}
-
-   <h1>Page content</h1>
-   ```
-
-2. File automatically becomes a page:
-   - `src/about.njk` → `/about/`
-   - `src/events/index.njk` → `/events/`
-
-## Using Components
-
-All components are in `src/_includes/components/`:
+## Creating a page
 
 ```nunjucks
-<!-- Simple include (no variables) -->
-{% include 'components/announcement.njk' %}
-
-<!-- Include with variables -->
-{% include 'components/hero.njk' with {
-  layout: 'two-column',
-  image: '/images/hero.jpg',
-  cta: {url: '/signup', type: 'primary'}
-} %}
-
-<!-- Loop through data -->
-{% for event in events %}
-  {% include 'components/event-card.njk' with event %}
-{% endfor %}
-```
-
-See `docs/COMPONENTS.md` for complete component reference.
-
-## Adding Styling
-
-Phase 2: Add component-specific styles.
-
-1. Create `src/styles/components/` directory
-2. Add files like `_nav.scss`, `_hero.scss`, etc.
-3. Import in `src/styles/main.scss`:
-   ```scss
-   @import 'components/nav';
-   @import 'components/hero';
-   ```
-
-4. Style using semantic selectors and CSS variables:
-   ```scss
-   .nav {
-     background: var(--surface);
-     padding: var(--space-lg);
-   }
-
-   .nav__logo {
-     color: var(--accent);
-   }
-   ```
-
-## Adding JavaScript
-
-Phase 3: Add interactivity.
-
-1. Create `src/assets/js/` directory
-2. Add script files (e.g., `drawer.js`, `mobile-menu.js`)
-3. In `src/_includes/layouts/base.njk`, import before `</body>`:
-   ```html
-   <script src="/assets/js/drawer.js"></script>
-   <script src="/assets/js/mobile-menu.js"></script>
-   ```
-
-## Adding Static Assets
-
-Place images, fonts, icons in `src/assets/`:
-- `src/assets/images/` → Available at `/assets/images/`
-- `src/assets/icons/` → Available at `/assets/icons/`
-- `src/assets/fonts/` → Available at `/assets/fonts/`
-
-Then reference in HTML:
-```html
-<img src="/assets/images/photo.jpg" alt="Photo">
-<link href="/assets/fonts/custom.woff2" rel="preload">
-```
-
-## SEO & Metadata
-
-All pages include comprehensive SEO by default (in `head.njk`):
-- OpenGraph tags (social sharing)
-- Twitter Card metadata
-- Schema.org structured data
-- Favicon + PWA manifest
-- Google/Bing/AI bot directives
-
-**Per-page overrides** in frontmatter:
-```yaml
 ---
-title: My Event
-description: Event details
-ogImage: /images/event.jpg
-ogType: event
-schemaEvent:
-  name: My Event
-  startDate: 2026-09-23
-  locationName: Syracuse, NY
+layout: landing
+title: About
+description: Page description
 ---
+{% from "components/hero.njk" import hero %}
+
+{{ hero() }}
 ```
+
+`src/about.njk` → `/about/`. Pages are added to `sitemap.xml` and `llms.txt` automatically. Set `eleventyExcludeFromCollections: true` to leave one out.
+
+## Adding styles
+
+Add rules to `_layout.scss` for structure, or create your own theme partial and `@use` it from `main.scss`. Select components by their data hooks:
+
+```scss
+[data-component="drawer"][data-state="open"] { }
+[data-component="hero"][data-layout="two-column"] { }
+[data-purpose="featured"] { }
+```
+
+## Static files
+
+- `src/assets/**` → `/assets/**`
+- `public/**` → `/**` (site root)
+
+## SEO and AI search
+
+`head.njk` emits the canonical link, Open Graph and Organization JSON-LD. Pages that set `schemaEvent` in front matter also get Event JSON-LD. JSON-LD is serialized from objects with the `json` filter, which escapes `<` so values cannot close the `<script>` tag. The build also writes `/robots.txt`, `/sitemap.xml` and `/llms.txt`.
 
 ## Deployment
 
-### To Vercel (Recommended)
-1. Push repo to GitHub
-2. Import in [Vercel](https://vercel.com/import)
-3. Select "11ty" preset
-4. Deploy!
-
-### To Netlify
-1. Connect GitHub repo
-2. Build command: `npm run build`
-3. Publish directory: `_site`
-4. Deploy!
-
-### To any static host
-Run `npm run build`, then upload `_site/` folder.
-
-## Troubleshooting
-
-**Port 8080 already in use:**
-```bash
-npm run dev -- --port 3000
-```
-
-**Cache issues:**
-```bash
-npm run clean && npm run build
-```
-
-**Changes not showing:**
-Stop the dev server (Ctrl+C) and restart:
-```bash
-npm run dev
-```
-
-## Next Steps
-
-1. ✅ Install dependencies
-2. ✅ Customize `global.json` and `nav.json`
-3. ✅ Review `docs/COMPONENTS.md`
-4. ✅ Create your first page
-5. ⬜ Add styling (phase 2)
-6. ⬜ Add interactivity (phase 3)
-7. ⬜ Deploy!
-
-## Resources
-
-- [11ty Documentation](https://www.11ty.dev/)
-- [Nunjucks Templating](https://mozilla.github.io/nunjucks/)
-- [Sass Documentation](https://sass-lang.com/)
-- [Schema.org Reference](https://schema.org/)
-- [OpenGraph Protocol](https://ogp.me/)
-
-## Support
-
-Found a bug or have a feature request? [Open an issue on GitHub](https://github.com/yourusername/template-library/issues).
-
----
-
-**Happy building!** 🚀
+Build command `npm run build`, publish directory `_site`.

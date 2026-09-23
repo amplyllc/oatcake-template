@@ -1,0 +1,12 @@
+---
+permalink: /llms.txt
+eleventyExcludeFromCollections: true
+---
+# {{ site.title }}
+
+> {{ site.description }}
+
+## Pages
+{% for entry in collections.all %}
+- [{{ entry.data.title or entry.url }}]({{ site.url }}{{ entry.url }}){% if entry.data.description %}: {{ entry.data.description }}{% endif %}
+{%- endfor %}

@@ -1,19 +1,14 @@
-<section class="hero" data-component="hero" data-layout="{{ layout or 'centered' }}">
+{% macro hero(item = {}) %}
+<section class="hero" data-component="hero" data-type="hero" data-id="{{ item.id }}" data-updated="{{ item.updated_at }}" data-purpose="{{ item.metadata.purpose if item.metadata }}" data-layout="{{ item.metadata.layout if item.metadata and item.metadata.layout else 'centered' }}">
   <div class="hero__container">
-    
-    {% if image %}
-      <figure class="hero__image">
-        <img src="{{ image }}" alt="{{ imageAlt or '' }}" loading="eager" />
-      </figure>
-    {% endif %}
-
+    <figure class="hero__image" data-show="media.0.url"{{ item | hidden('media.0.url', true) }}>
+      <img data-slot-src="media.0.url" data-slot-alt="media.0.alt"{% if item | slot('media.0.url') %} src="{{ item | slot('media.0.url') }}"{% endif %} alt="{{ item | slot('media.0.alt') }}" loading="eager">
+    </figure>
     <div class="hero__content">
-      <h1 class="hero__headline"></h1>
-      <p class="hero__subheadline"></p>
-      {% if cta %}
-        <a class="hero__cta" href="{{ cta.url }}" data-cta-type="{{ cta.type or 'primary' }}"></a>
-      {% endif %}
+      <h1 class="hero__headline" data-slot="title">{{ item | slot('title', 'Hero headline') }}</h1>
+      <p class="hero__subheadline" data-slot="summary"{{ item | hidden('summary') }}>{{ item | slot('summary', 'Hero subheadline: the supporting sentence under the headline') }}</p>
+      <a class="hero__cta" data-show="url" data-slot-href="url" href="{{ item | slot('url', '#') }}"{{ item | hidden('url') }}>Hero call-to-action link</a>
     </div>
-
   </div>
 </section>
+{% endmacro %}

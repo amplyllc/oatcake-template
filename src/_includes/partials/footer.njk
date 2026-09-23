@@ -1,24 +1,21 @@
 <footer class="footer" data-component="footer">
-  
   <div class="footer__container">
-    
     <div class="footer__content">
       <div class="footer__section">
-        <h3 class="footer__heading"></h3>
+        <h3 class="footer__heading">Footer column heading</h3>
         <ul class="footer__links">
-          <li><a class="footer__link" href="#"></a></li>
-          <li><a class="footer__link" href="#"></a></li>
+          <li><a class="footer__link" href="#">Footer link</a></li>
+          <li><a class="footer__link" href="#">Footer link</a></li>
         </ul>
       </div>
     </div>
-
     <div class="footer__bottom">
-      <p class="footer__credit"></p>
+      <p class="footer__credit">© {{ site.title }}</p>
       <div class="footer__socials">
-        <a class="footer__social" href="#" aria-label=""></a>
+        {% for url in site.sameAs %}
+        <a class="footer__social" href="{{ url }}" rel="me">Social profile link</a>
+        {% endfor %}
       </div>
     </div>
-
   </div>
-
 </footer>
