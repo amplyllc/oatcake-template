@@ -16,7 +16,7 @@ These take one `item` in the content contract shape (see [CONTRACT.md](CONTRACT.
 |---|---|
 | `data-slot="path"` | Text content comes from `path` (e.g. `title`, `location.name`); hidden when empty |
 | `data-format="date"` | Text is the formatted date |
-| `data-slot-href` / `-src` / `-alt` / `-datetime` | That attribute comes from `path` |
+| `data-slot-<attr>="path"` | Attribute `<attr>` comes from `path` (e.g. `data-slot-href`, `data-slot-src`, `data-slot-data-layout`); removed when empty |
 | `data-show="path"` | Element is hidden when `path` is empty |
 
 The root element also carries `data-id`, `data-updated`, `data-type` and `data-purpose`.

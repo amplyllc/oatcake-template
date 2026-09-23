@@ -1,4 +1,5 @@
-{% from "components/nav.njk" import siteNav -%}
+{% from "components/nav.njk" import siteNav %}
+{% from "components/registry.njk" import templates -%}
 <!DOCTYPE html>
 <html lang="{{ lang or site.lang }}" dir="{{ direction or 'ltr' }}">
 <head>
@@ -10,5 +11,9 @@
     {{ content | safe }}
   </main>
   {% include "partials/footer.njk" %}
+  {% if hydrate and api.base %}
+  {{ templates() }}
+  <script src="/assets/js/hydrate.js" defer></script>
+  {% endif %}
 </body>
 </html>

@@ -82,6 +82,8 @@
   gap: var(--space-md);
 }
 
+// No data-layout means centered, so a hydrated hero whose layout is cleared falls back cleanly.
+.hero:not([data-layout]) .hero__content,
 .hero[data-layout='centered'] .hero__content {
   align-items: center;
   text-align: center;

@@ -16,6 +16,10 @@
 <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM site summary">
 
 <link rel="stylesheet" href="/styles/main.css">
+<meta name="content-source" content="{{ api.source }}">
+{% if hydrate and api.base %}
+<meta name="api-base" content="{{ api.base }}" data-workspace="{{ api.workspace }}" data-since="{{ api.since }}" data-locale="{{ site.locale }}" data-time-zone="{{ site.timeZone }}">
+{% endif %}
 
 <meta property="og:type" content="{{ ogType or 'website' }}">
 <meta property="og:title" content="{{ title or site.title }}">

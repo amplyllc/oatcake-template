@@ -5,7 +5,8 @@ A structure-first component library built with [11ty](https://www.11ty.dev/), [N
 - **12 components, 2 partials, 5 layouts**, each defined once as a Nunjucks macro
 - **Structure only**: semantic HTML with descriptive placeholder text, a CSS reset and critical layout; no theme
 - **SEO / AI search**: schema.org JSON-LD, Open Graph, `robots.txt`, `sitemap.xml`, `llms.txt`
-- **Static first**: plain HTML output; JavaScript only where a feature needs it
+- **One content contract**: a mixed feed of events, offers, heroes and announcements rendered from `GET /api/v1/content`, baked at build time and reconciled live in the browser. See [docs/CONTRACT.md](docs/CONTRACT.md)
+- **Static first**: complete HTML without JS; one ~3 KB gzipped script (`hydrate.js`) patches changed items only
 - **MIT licensed**
 
 ## Quick start
@@ -16,7 +17,10 @@ Requires Node.js 18+.
 npm install
 npm run dev     # http://localhost:8080
 npm run build   # writes _site/
+API_BASE=https://api.example.com API_WORKSPACE=main npm run build
 ```
+
+Without `API_BASE` the build renders `src/_data/fixtures/content.json`.
 
 Open `/components/` to see every component rendered with its placeholders.
 
@@ -25,19 +29,23 @@ Open `/components/` to see every component rendered with its placeholders.
 ```
 src/
   _includes/
-    components/      # One macro per file
+    components/      # One macro per file; registry.njk maps content type → macro
     layouts/         # base, landing, article, event-detail, directory
     partials/        # footer (include), section-wrapper (macro)
     head.njk         # Meta, Open Graph, JSON-LD
   _data/
     site.json        # Site-wide config (read as site.*)
     nav.json         # Navigation links and actions
+    api.js           # Content connector (build): API → api.content, fixture fallback
+    fixtures/        # Sample content in the contract shape
   styles/
     _reset.scss      # Modern reset
     _base.scss       # Layout tokens + utilities
     _layout.scss     # Critical structural layout per component
     main.scss        # Compiled to /styles/main.css
   assets/            # Copied to /assets/
+    js/hydrate.js    # Content connector (browser): live reconcile; also the build's select/format
+  api/content.njk    # → /api/content.json
   components.njk     # Component showcase at /components/
   index.njk          # Homepage
   robots.njk, sitemap.njk, llms.njk

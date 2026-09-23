@@ -2,14 +2,8 @@
 layout: landing
 title: Template Library
 description: Structure-first 11ty + Nunjucks component library for marketing sites, web apps and native shells.
+hydrate: true
 ---
-{% from "components/hero.njk" import hero %}
-{% from "components/cta-section.njk" import ctaSection %}
+{% from "components/registry.njk" import feed %}
 
-{{ hero() }}
-
-<section class="py-xl">
-  <h2>Featured items</h2>
-</section>
-
-{{ ctaSection() }}
+{{ feed(api.content) }}

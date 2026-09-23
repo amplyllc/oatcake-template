@@ -23,6 +23,8 @@ npm run clean   # remove _site/
 | `locale`, `timeZone` | Date formatting |
 | `sameAs` | Organization JSON-LD `sameAs`, footer social links |
 
+Environment: `API_BASE` and `API_WORKSPACE` configure the content API (see [CONTRACT.md](CONTRACT.md)).
+
 `src/_data/nav.json` holds the header links and actions. The `siteNav` macro renders them for both the desktop and mobile menus.
 
 ## Creating a page

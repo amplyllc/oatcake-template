@@ -1,5 +1,5 @@
 {% macro hero(item = {}) %}
-<section class="hero" data-component="hero" data-type="hero" data-id="{{ item.id }}" data-updated="{{ item.updated_at }}" data-purpose="{{ item.metadata.purpose if item.metadata }}" data-layout="{{ item.metadata.layout if item.metadata and item.metadata.layout else 'centered' }}">
+<section class="hero" data-component="hero" data-type="{{ item.type or 'hero' }}" data-id="{{ item.id }}" data-updated="{{ item.updated_at }}" data-purpose="{{ item.metadata.purpose if item.metadata }}" data-slot-data-layout="metadata.layout"{% if item | slot('metadata.layout') %} data-layout="{{ item | slot('metadata.layout') }}"{% endif %}>
   <div class="hero__container">
     <figure class="hero__image" data-show="media.0.url"{{ item | hidden('media.0.url', true) }}>
       <img data-slot-src="media.0.url" data-slot-alt="media.0.alt"{% if item | slot('media.0.url') %} src="{{ item | slot('media.0.url') }}"{% endif %} alt="{{ item | slot('media.0.alt') }}" loading="eager">

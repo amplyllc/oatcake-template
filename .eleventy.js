@@ -2,9 +2,8 @@ const path = require('node:path');
 const sass = require('sass');
 const site = require('./src/_data/site.json');
 
-const get = (obj, path) => path.split('.').reduce((o, k) => (o == null ? undefined : o[k]), obj);
-const formatDate = (iso) =>
-  new Intl.DateTimeFormat(site.locale, { dateStyle: 'medium', timeStyle: 'short', timeZone: site.timeZone }).format(new Date(iso));
+// The browser connector doubles as the build's content library: one select/format for both.
+const { get, select, formatDate } = require('./src/assets/js/hydrate.js');
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy('src/assets');
@@ -43,12 +42,20 @@ module.exports = function (eleventyConfig) {
     if (!item || !item.id) return placeholder;
     const value = get(item, path);
     if (value == null || value === '') return '';
-    return format === 'date' ? formatDate(value) : value;
+    return format === 'date' ? formatDate(value, site.locale, site.timeZone) : value;
   });
   eleventyConfig.addFilter('hidden', (item, path, evenAsPlaceholder = false) => {
     const empty = !item || get(item, path) == null || get(item, path) === '';
     return empty && (evenAsPlaceholder || (item && item.id)) ? ' hidden' : '';
   });
+  // Same membership rules the browser applies, so a region's static and live renders agree.
+  eleventyConfig.addFilter('contentFor', (items, filter = {}, registry = {}) =>
+    select(items || [], {
+      types: filter.type ? filter.type.split(',') : Object.keys(registry),
+      purpose: filter.purpose,
+      limit: filter.limit,
+    }),
+  );
   eleventyConfig.addFilter('dateISO', (date) => (date ? new Date(date).toISOString() : ''));
 
   return {

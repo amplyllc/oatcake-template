@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 920" width="1000" height="920" role="img" aria-labelledby="t d">
+  <title id="t">From page-shaped to client-shaped API</title>
+  <desc id="d">Six per-caller routes are replaced by one content endpoint and one render endpoint, which web and iOS clients both call.</desc>
+  <style>
+    svg { --bg:#ffffff; --text:#1f2328; --muted:#57606a; --line:#6e7781;
+      --gray-f:#eef0f2; --gray-s:#afb8c1; --teal-f:#e0f2ef; --teal-s:#2f8f83; --purple-f:#ece8f7; --purple-s:#7a68b8;
+      --blue-f:#e3edf9; --blue-s:#3f72b5; --coral-f:#fbe9e4; --coral-s:#c9694f; --note-f:#f6f8fa; --note-s:#d0d7de; }
+    @media (prefers-color-scheme: dark) {
+      svg { --bg:#0d1117; --text:#e6edf3; --muted:#9da7b3; --line:#8b949e;
+        --gray-f:#1c2128; --gray-s:#545d68; --teal-f:#0f2a27; --teal-s:#4fb3a5; --purple-f:#211d33; --purple-s:#9d8cdb;
+        --blue-f:#12233a; --blue-s:#6ea0dc; --coral-f:#33201b; --coral-s:#e08a70; --note-f:#161b22; --note-s:#30363d; }
+    }
+    text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; fill: var(--text); font-size: 14px; }
+    .bg { fill: var(--bg); }
+    .h1 { font-size: 22px; font-weight: 600; }
+    .h2 { font-size: 16px; font-weight: 600; }
+    .title { font-size: 15px; font-weight: 600; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13.5px; }
+    .muted { fill: var(--muted); }
+    .label { font-size: 12px; font-weight: 600; letter-spacing: .04em; fill: var(--muted); }
+    .gray { fill: var(--gray-f); stroke: var(--gray-s); }
+    .teal { fill: var(--teal-f); stroke: var(--teal-s); }
+    .purple { fill: var(--purple-f); stroke: var(--purple-s); }
+    .blue { fill: var(--blue-f); stroke: var(--blue-s); }
+    .coral { fill: var(--coral-f); stroke: var(--coral-s); }
+    .note { fill: var(--note-f); stroke: var(--note-s); }
+    rect { stroke-width: 1.25; }
+    .edge { stroke: var(--line); stroke-width: 1.25; fill: none; }
+    .head { fill: var(--line); }
+    .rule { stroke: var(--note-s); stroke-width: 1; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="head" d="M0 0 L10 5 L0 10 z"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1000" height="920" stroke="none"/>
+  <text class="h1" x="40" y="52">From page-shaped to client-shaped API</text>
+
+  <!-- Left: current -->
+  <text class="h2" x="40" y="100">Current: one route per caller</text>
+  <g>
+    <rect class="gray" x="40" y="116" width="430" height="42" rx="8"/><text class="mono" x="60" y="142">/api/v1/sites/[slug]/events</text>
+    <rect class="gray" x="40" y="168" width="430" height="42" rx="8"/><text class="mono" x="60" y="194">/api/v1/sites/[slug]/settings</text>
+    <rect class="gray" x="40" y="220" width="430" height="42" rx="8"/><text class="mono" x="60" y="246">/api/share/og</text>
+    <rect class="gray" x="40" y="272" width="430" height="42" rx="8"/><text class="mono" x="60" y="298">/api/follow</text>
+    <rect class="gray" x="40" y="324" width="430" height="42" rx="8"/><text class="mono" x="60" y="350">/api/rsvp</text>
+    <rect class="gray" x="40" y="376" width="430" height="42" rx="8"/><text x="60" y="402">Dashboard server actions</text>
+  </g>
+  <rect class="note" x="40" y="452" width="430" height="92" rx="8"/>
+  <text class="label" x="60" y="478">PROBLEMS</text>
+  <text x="60" y="502">Each route re-derives auth</text>
+  <text x="60" y="526">Shape differs per caller</text>
+
+  <!-- Right: simplified -->
+  <text class="h2" x="530" y="100">Simplified: one contract</text>
+  <rect class="teal" x="530" y="116" width="430" height="196" rx="10"/>
+  <text class="title mono" x="550" y="146">/api/v1/content</text>
+  <text x="550" y="176">GET <tspan class="mono">?workspace, type, since</tspan></text>
+  <text x="550" y="202">POST create (idempotent)</text>
+  <text x="550" y="228">PATCH update by id</text>
+  <text x="550" y="254">Same shape for event, offer, hero, announcement</text>
+  <text x="550" y="280">Auth: bearer or cookie, once</text>
+
+  <path class="edge" d="M745 312 V 342" marker-end="url(#arrow)"/>
+
+  <rect class="purple" x="530" y="346" width="430" height="92" rx="10"/>
+  <text class="title mono" x="550" y="374">/api/v1/render</text>
+  <text x="550" y="400">Same content_id → image, page, or embed JSON</text>
+  <text class="muted" x="550" y="424" font-size="13">Format only</text>
+
+  <rect class="note" x="530" y="452" width="430" height="92" rx="8"/>
+  <text class="label" x="550" y="478">BENEFITS</text>
+  <text x="550" y="502">Web, iOS, embeds call the same endpoint</text>
+  <text x="550" y="526">No per-client forks</text>
+
+  <!-- Bottom: clients -->
+  <line class="rule" x1="40" y1="582" x2="960" y2="582"/>
+  <text class="h2" x="500" y="624" text-anchor="middle">Web and iOS read the same contract</text>
+
+  <rect class="teal" x="360" y="646" width="280" height="44" rx="22"/>
+  <text x="500" y="673" text-anchor="middle">Both call <tspan class="mono">/api/v1/content</tspan></text>
+
+  <rect class="blue" x="120" y="740" width="300" height="56" rx="10"/>
+  <text class="title" x="270" y="773" text-anchor="middle">Next.js server actions</text>
+  <rect class="coral" x="580" y="740" width="300" height="56" rx="10"/>
+  <text class="title" x="730" y="773" text-anchor="middle">SwiftUI network layer</text>
+
+  <path class="edge" d="M270 740 C 270 712, 360 700, 404 692" marker-end="url(#arrow)"/>
+  <path class="edge" d="M730 740 C 730 712, 640 700, 596 692" marker-end="url(#arrow)"/>
+
+  <rect class="note" x="40" y="832" width="920" height="52" rx="8"/>
+  <text class="h2" x="500" y="864" text-anchor="middle">Cheap = one auth check, one shape, one place to add a field</text>
+</svg>

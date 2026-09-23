@@ -1,5 +1,5 @@
 {% macro announcement(item = {}) %}
-<div class="announcement" data-component="announcement" data-type="announcement" data-id="{{ item.id }}" data-updated="{{ item.updated_at }}" data-purpose="{{ item.metadata.purpose if item.metadata }}" role="status" aria-live="polite">
+<div class="announcement" data-component="announcement" data-type="{{ item.type or 'announcement' }}" data-id="{{ item.id }}" data-updated="{{ item.updated_at }}" data-purpose="{{ item.metadata.purpose if item.metadata }}" role="status" aria-live="polite">
   <div class="announcement__inner">
     <span class="announcement__icon" aria-hidden="true"></span>
     <div class="announcement__content">
