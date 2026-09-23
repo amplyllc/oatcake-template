@@ -2,12 +2,14 @@
 <section class="linktree" data-component="linktree" itemscope itemtype="https://schema.org/Person">
   <div class="linktree__container">
     <div class="linktree__header">
-      <img class="linktree__avatar"{% if profile.avatar %} src="{{ profile.avatar }}"{% endif %} alt="" itemprop="image">
+      <div class="linktree__avatar media" data-label="Avatar">
+        <img{% if profile.avatar %} src="{{ profile.avatar }}"{% endif %} alt="" itemprop="image">
+      </div>
       <h2 class="linktree__name" itemprop="name">{{ profile.name or 'Profile name' }}</h2>
     </div>
     <div class="linktree__links">
       {% for link in (profile.links if profile.links else [{}, {}, {}]) %}
-      <a class="linktree__link" href="{{ link.url or '#' }}" data-purpose="{{ link.purpose or 'link' }}" itemprop="url">
+      <a class="linktree__link button" href="{{ link.url or '#' }}" data-purpose="{{ link.purpose or 'link' }}" itemprop="url">
         <span class="linktree__icon" aria-hidden="true"></span>
         <span class="linktree__text">{{ link.text or 'Link label' }}</span>
       </a>

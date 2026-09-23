@@ -17,16 +17,18 @@ description: Every component rendered with its descriptive placeholders.
 {% from "components/tiktok-feed.njk" import tiktokFeed %}
 {% from "partials/section-wrapper.njk" import section %}
 
-{{ announcement() }}
-{{ hero() }}
-{% call section() %}
-  <div class="grid-3">{{ eventCard() }}{{ eventCard() }}{{ eventCard() }}</div>
+<div class="container">
+  {{ announcement() }}
+  {{ hero() }}
+</div>
+{% call section('alt') %}
+  <div class="grid">{{ eventCard() }}{{ eventCard() }}{{ eventCard() }}</div>
 {% endcall %}
-{{ ctaSection() }}
-{% call section() %}{{ gallery() }}{% endcall %}
+{% call section() %}{{ ctaSection() }}{% endcall %}
+{% call section('alt') %}{{ gallery() }}{% endcall %}
 {% call section() %}{{ linktree() }}{% endcall %}
-{% call section() %}{{ shortcutsGrid() }}{% endcall %}
+{% call section('alt') %}{{ shortcutsGrid() }}{% endcall %}
 {% call section() %}{{ blogPost() }}{% endcall %}
-{{ tiktokFeed() }}
+{% call section('alt') %}{{ tiktokFeed() }}{% endcall %}
 {{ drawer() }}
 {{ notification() }}

@@ -1,0 +1,56 @@
+// Sizing and neutral surface tokens. Colors derive from the browser's Canvas/CanvasText system
+// colors, so light and dark mode work with no palette; a theme only overrides these properties.
+$bp-sm: 40rem;
+$bp-md: 48rem;
+$bp-lg: 64rem;
+
+@mixin up($bp) {
+  @media (min-width: $bp) { @content; }
+}
+
+@mixin stack($gap: var(--space-md)) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+@mixin row($gap: var(--space-md)) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $gap;
+}
+
+:root {
+  color-scheme: light dark;
+
+  --bg: Canvas;
+  --fg: CanvasText;
+  --surface: color-mix(in oklab, var(--fg) 4%, var(--bg));
+  --surface-2: color-mix(in oklab, var(--fg) 9%, var(--bg));
+  --border: color-mix(in oklab, var(--fg) 16%, var(--bg));
+  --muted: color-mix(in oklab, var(--fg) 62%, var(--bg));
+  --scrim: rgb(0 0 0 / 0.5);
+
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 0.75rem;
+  --space-lg: 1rem;
+  --space-xl: 1.5rem;
+  --space-2xl: 2rem;
+  --space-3xl: 3rem;
+
+  --step--1: 0.875rem;
+  --step-0: 1rem;
+  --step-1: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+  --step-2: clamp(1.35rem, 1.2rem + 0.75vw, 1.75rem);
+  --step-3: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
+  --step-4: clamp(2.25rem, 1.6rem + 3vw, 3.5rem);
+
+  --max-width: 75rem;
+  --measure: 65ch;
+  --container-pad: clamp(1rem, 4vw, 2rem);
+  --nav-height: 4rem;
+  --radius: 0.5rem;
+  --tap: 2.75rem;
+}

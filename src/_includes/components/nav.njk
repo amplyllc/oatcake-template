@@ -1,6 +1,9 @@
 {#- Named siteNav so it does not shadow the `nav` global data it renders. -#}
 {% macro siteNav(nav = {}, site = {}) %}
 <header class="nav" data-component="nav">
+  {#- No-JS menu state. Must stay a sibling before .nav__inner and .nav__mobile: the CSS opens the
+      panel with `:checked ~`. The label below is its visible control. -#}
+  <input class="nav__checkbox visually-hidden" type="checkbox" id="nav-toggle" aria-label="Menu" aria-controls="nav-mobile">
   <div class="nav__inner">
     <a class="nav__logo" href="/">
       <span class="nav__logo-mark" aria-hidden="true"></span>
@@ -15,16 +18,16 @@
     </nav>
     <div class="nav__actions">
       {% for action in nav.actions %}
-      <a class="nav__action nav__action--{{ action.style }}" href="{{ action.url }}">{{ action.label or 'Nav action' }}</a>
+      <a class="nav__action nav__action--{{ action.style }} button{% if action.style == 'primary' %} button--primary{% endif %}" href="{{ action.url }}">{{ action.label or 'Nav action' }}</a>
       {% endfor %}
     </div>
-    <button class="nav__toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-mobile">
+    <label class="nav__toggle" for="nav-toggle" aria-hidden="true">
       <span class="nav__toggle-bar"></span>
       <span class="nav__toggle-bar"></span>
       <span class="nav__toggle-bar"></span>
-    </button>
+    </label>
   </div>
-  <div class="nav__mobile" id="nav-mobile" hidden>
+  <nav class="nav__mobile" id="nav-mobile" aria-label="Mobile">
     <ul class="nav__mobile-list">
       {% for link in nav.links %}
       <li class="nav__mobile-item"><a class="nav__mobile-link" href="{{ link.url }}">{{ link.label or 'Nav link' }}</a></li>
@@ -32,9 +35,9 @@
     </ul>
     <div class="nav__mobile-actions">
       {% for action in nav.actions %}
-      <a class="nav__action nav__action--{{ action.style }}" href="{{ action.url }}">{{ action.label or 'Nav action' }}</a>
+      <a class="nav__action nav__action--{{ action.style }} button{% if action.style == 'primary' %} button--primary{% endif %}" href="{{ action.url }}">{{ action.label or 'Nav action' }}</a>
       {% endfor %}
     </div>
-  </div>
+  </nav>
 </header>
 {% endmacro %}

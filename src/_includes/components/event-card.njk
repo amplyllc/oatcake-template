@@ -1,7 +1,7 @@
 {#- Placeholders render only when called without a real item (showcase, <template>). -#}
 {% macro eventCard(item = {}) %}
 <article class="event-card" data-component="event-card" data-type="{{ item.type or 'event' }}" data-id="{{ item.id }}" data-updated="{{ item.updated_at }}" data-purpose="{{ item.metadata.purpose if item.metadata }}" itemscope itemtype="https://schema.org/Event">
-  <figure class="event-card__image" data-show="media.0.url"{{ item | hidden('media.0.url', true) }}>
+  <figure class="event-card__image media" data-label="Event image">
     <img data-slot-src="media.0.url" data-slot-alt="media.0.alt"{% if item | slot('media.0.url') %} src="{{ item | slot('media.0.url') }}"{% endif %} alt="{{ item | slot('media.0.alt') }}" loading="lazy" itemprop="image">
   </figure>
   <div class="event-card__body">
@@ -13,7 +13,7 @@
     </div>
     <p class="event-card__description" data-slot="summary" itemprop="description"{{ item | hidden('summary') }}>{{ item | slot('summary', 'Event summary: one or two sentences about what happens') }}</p>
     <div class="event-card__actions">
-      <a class="event-card__link" data-show="url" data-slot-href="url" href="{{ item | slot('url', '#') }}" itemprop="url"{{ item | hidden('url') }}>Event details link</a>
+      <a class="event-card__link button" data-show="url" data-slot-href="url" href="{{ item | slot('url', '#') }}" itemprop="url"{{ item | hidden('url') }}>Event details link</a>
     </div>
   </div>
 </article>

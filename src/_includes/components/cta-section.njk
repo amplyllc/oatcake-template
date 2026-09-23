@@ -5,7 +5,7 @@
     <p class="cta__subheadline" data-slot="summary"{{ item | hidden('summary') }}>{{ item | slot('summary', 'CTA subheadline: why act now') }}</p>
   </div>
   <div class="cta__actions">
-    <a class="cta__button cta__button--primary" data-show="url" data-slot-href="url" href="{{ item | slot('url', '#') }}"{{ item | hidden('url') }}>CTA primary button</a>
+    <a class="cta__button cta__button--primary button button--primary" data-show="url" data-slot-href="url" href="{{ item | slot('url', '#') }}"{{ item | hidden('url') }}>CTA primary button</a>
   </div>
 </section>
 {% endmacro %}

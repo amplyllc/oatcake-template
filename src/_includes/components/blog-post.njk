@@ -4,9 +4,10 @@
   <header class="blog-post__header">
     <h1 class="blog-post__title" itemprop="headline">{{ post.title or 'Post headline' }}</h1>
     <time class="blog-post__meta" datetime="{{ post.date | dateISO }}" itemprop="datePublished">{{ post.date or 'Post publish date' }}</time>
-    {% if post.image %}
-    <figure class="blog-post__image">
-      <img src="{{ post.image }}" alt="{{ post.imageAlt or '' }}" itemprop="image">
+    {#- An imageless real post gets no box; an empty call shows the placeholder. -#}
+    {% if post.image or not post.title %}
+    <figure class="blog-post__image media" data-label="Post featured image">
+      <img{% if post.image %} src="{{ post.image }}"{% endif %} alt="{{ post.imageAlt or '' }}" itemprop="image">
     </figure>
     {% endif %}
   </header>

@@ -8,21 +8,18 @@
 }
 
 html {
-  // Lets UA defaults follow the OS theme without this library choosing any colors.
-  color-scheme: light dark;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
 
 body {
-  min-height: 100dvh;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  line-height: 1.2;
+  line-height: 1.15;
   overflow-wrap: break-word;
 }
 
@@ -41,8 +38,11 @@ input, button, textarea, select {
   color: inherit;
 }
 
-button {
+button, label[for] {
   cursor: pointer;
+}
+
+button {
   border: 0;
   background: none;
 }

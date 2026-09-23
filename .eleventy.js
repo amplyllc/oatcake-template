@@ -44,10 +44,9 @@ module.exports = function (eleventyConfig) {
     if (value == null || value === '') return '';
     return format === 'date' ? formatDate(value, site.locale, site.timeZone) : value;
   });
-  eleventyConfig.addFilter('hidden', (item, path, evenAsPlaceholder = false) => {
-    const empty = !item || get(item, path) == null || get(item, path) === '';
-    return empty && (evenAsPlaceholder || (item && item.id)) ? ' hidden' : '';
-  });
+  eleventyConfig.addFilter('hidden', (item, path) =>
+    item && item.id && (get(item, path) == null || get(item, path) === '') ? ' hidden' : '',
+  );
   // Same membership rules the browser applies, so a region's static and live renders agree.
   eleventyConfig.addFilter('contentFor', (items, filter = {}, registry = {}) =>
     select(items || [], {

@@ -3,7 +3,9 @@
   <div class="gallery__grid">
     {% for item in (items if items.length else [{}, {}, {}]) %}
     <figure class="gallery__item">
-      <img{% if item.image %} src="{{ item.image }}"{% endif %} alt="{{ item.alt or '' }}" loading="lazy">
+      <div class="gallery__media media" data-label="Gallery image">
+        <img{% if item.image %} src="{{ item.image }}"{% endif %} alt="{{ item.alt or '' }}" loading="lazy">
+      </div>
       <figcaption class="gallery__caption">{{ item.caption or 'Gallery image caption' }}</figcaption>
     </figure>
     {% endfor %}

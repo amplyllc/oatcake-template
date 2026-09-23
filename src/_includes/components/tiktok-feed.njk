@@ -4,7 +4,7 @@
   <div class="tiktok-feed__viewport" data-scroll="snap-y">
     {% for slide in slides %}
     <article class="tiktok-feed__slide" data-index="{{ loop.index0 }}">
-      <figure class="tiktok-feed__media">
+      <figure class="tiktok-feed__media media" data-label="Slide media">
         <img{% if slide.image %} src="{{ slide.image }}"{% endif %} alt="" loading="lazy">
       </figure>
       <div class="tiktok-feed__overlay">
