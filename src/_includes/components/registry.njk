@@ -1,0 +1,37 @@
+{% from "components/event-card.njk" import eventCard %}
+{% from "components/hero.njk" import hero %}
+{% from "components/cta-section.njk" import ctaSection %}
+{% from "components/announcement.njk" import announcement %}
+
+{#- content.type → macro. Adding a type is one entry here plus its macro; the static render, the
+    <template>s and hydrate.js all pick it up. Unregistered types render nothing anywhere. -#}
+{% set registry = {
+  event: eventCard,
+  hero: hero,
+  offer: ctaSection,
+  announcement: announcement
+} %}
+
+{% macro renderItem(item) %}
+  {%- if registry[item.type] %}{{ registry[item.type](item) }}{% endif -%}
+{% endmacro %}
+
+{#- filter: { type: "event,offer", purpose, limit }. The attributes are the region's filter state:
+    hydrate.js re-reads them on every reconcile, so a UI that changes them keeps its effect. -#}
+{% macro feed(items, filter = {}) %}
+<div class="feed" data-component="feed" data-hydrate="content"
+  {%- if filter.type %} data-type="{{ filter.type }}"{% endif %}
+  {%- if filter.purpose %} data-purpose="{{ filter.purpose }}"{% endif %}
+  {%- if filter.limit %} data-limit="{{ filter.limit }}"{% endif %}>
+  {%- for item in items | contentFor(filter, registry) %}
+  {{ renderItem(item) }}
+  {%- endfor %}
+</div>
+{% endmacro %}
+
+{#- One empty render per type: the only markup hydrate.js ever inserts. -#}
+{% macro templates() %}
+  {%- for type, render in registry %}
+<template data-type="{{ type }}">{{ render() }}</template>
+  {%- endfor %}
+{% endmacro %}

@@ -1,47 +1,71 @@
-* {
-  margin: 0;
-  padding: 0;
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  // Lets UA defaults follow the OS theme without this library choosing any colors.
+  color-scheme: light dark;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
-  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
-  font-size: 16px;
+  min-height: 100dvh;
+  font-family: system-ui, -apple-system, sans-serif;
   line-height: 1.5;
-  color: var(--text, #000);
-  background: var(--bg, #fff);
+  -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
-  font-weight: 700;
+  overflow-wrap: break-word;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button {
-  font: inherit;
-  cursor: pointer;
-  border: none;
-  background: none;
-}
-
-input, textarea, select {
-  font: inherit;
+p {
+  overflow-wrap: break-word;
 }
 
 img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
-ul, ol {
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  background: none;
+}
+
+a {
+  color: inherit;
+}
+
+ul[class], ol[class] {
   list-style: none;
+}
+
+// Any `display` rule on a component would otherwise beat the attribute's UA style, and
+// hydrate.js toggles `hidden` to show/hide empty slots.
+[hidden] {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

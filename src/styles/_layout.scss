@@ -1,0 +1,413 @@
+// Critical structural layout per component: position, flow, sizing. No color, type or decoration.
+@use 'base' as *;
+
+// ─ Nav ─
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  min-height: var(--nav-height);
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.nav__logo,
+.nav__list,
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.nav__links,
+.nav__actions {
+  display: none;
+}
+
+.nav__toggle {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+}
+
+.nav__toggle-bar {
+  display: block;
+  width: 1.25rem;
+  height: 2px;
+  background: currentColor;
+}
+
+.nav__mobile {
+  padding: var(--space-lg) var(--container-pad);
+}
+
+.nav__mobile-list,
+.nav__mobile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.nav__mobile-actions {
+  margin-top: var(--space-lg);
+}
+
+@media (min-width: $bp-md) {
+  .nav__links,
+  .nav__actions { display: flex; }
+  .nav__toggle,
+  .nav__mobile { display: none; }
+}
+
+// ─ Hero ─
+.hero__container {
+  display: grid;
+  gap: var(--space-xl);
+  align-items: center;
+  padding-block: var(--space-2xl);
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+// No data-layout means centered, so a hydrated hero whose layout is cleared falls back cleanly.
+.hero:not([data-layout]) .hero__content,
+.hero[data-layout='centered'] .hero__content {
+  align-items: center;
+  text-align: center;
+}
+
+.hero__image img {
+  width: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: $bp-md) {
+  .hero[data-layout='two-column'] .hero__container { grid-template-columns: 1fr 1fr; }
+}
+
+// ─ Content feed (hydrate region) ─
+.feed {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(18rem, 100%), 1fr));
+  gap: var(--space-lg);
+}
+
+// Full-bleed types span the whole row so a mixed feed stays readable.
+.feed > [data-type='hero'],
+.feed > [data-type='announcement'],
+.feed > [data-type='offer'] {
+  grid-column: 1 / -1;
+}
+
+// ─ Event card ─
+.event-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.event-card__image img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.event-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding-block: var(--space-md);
+}
+
+.event-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-md);
+}
+
+.event-card__actions {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: auto;
+}
+
+// ─ CTA ─
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding-block: var(--space-xl);
+}
+
+.cta__content {
+  display: flex;
+  flex: 1 1 20rem;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+// ─ Announcement ─
+.announcement__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--container-pad);
+}
+
+.announcement__content { flex: 1; }
+
+// ─ Notification ─
+.notification {
+  position: fixed;
+  right: var(--space-lg);
+  bottom: var(--space-lg);
+  left: var(--space-lg);
+  z-index: 30;
+  display: flex;
+  gap: var(--space-md);
+  max-width: 24rem;
+  margin-left: auto;
+  padding: var(--space-md);
+}
+
+.notification__accent {
+  flex: 0 0 0.25rem;
+  align-self: stretch;
+}
+
+// ─ Drawer ─
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+}
+
+.drawer[data-state='closed'] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.drawer__overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.drawer__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(22rem, 100%);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-xl);
+}
+
+.drawer__close {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+}
+
+.drawer__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+// ─ Gallery ─
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
+  gap: var(--space-md);
+}
+
+.gallery__item img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+// ─ Linktree ─
+.linktree__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xl);
+  max-width: 30rem;
+  margin-inline: auto;
+  padding-block: var(--space-2xl);
+}
+
+.linktree__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.linktree__avatar {
+  width: 6rem;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.linktree__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.linktree__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+}
+
+// ─ Shortcuts grid ─
+.shortcuts-grid__container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+  gap: var(--space-md);
+}
+
+.shortcuts-grid__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  aspect-ratio: 1;
+  padding: var(--space-md);
+}
+
+// ─ Vertical snap feed ─
+.tiktok-feed {
+  position: relative;
+}
+
+.tiktok-feed__viewport {
+  height: 100dvh;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y mandatory;
+}
+
+.tiktok-feed__slide {
+  position: relative;
+  height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.tiktok-feed__media,
+.tiktok-feed__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tiktok-feed__overlay {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding: var(--space-xl) var(--container-pad);
+}
+
+.tiktok-feed__controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.tiktok-feed__indicators {
+  position: absolute;
+  top: 50%;
+  right: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  transform: translateY(-50%);
+}
+
+// ─ Blog post ─
+.blog-post {
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
+.blog-post__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+// ─ Section + footer ─
+.section__container {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding: var(--space-2xl) var(--container-pad);
+}
+
+.footer__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding: var(--space-2xl) var(--container-pad);
+}
+
+.footer__content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--space-xl);
+}
+
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.footer__bottom,
+.footer__socials {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}

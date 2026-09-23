@@ -1,21 +1,18 @@
+{% macro linktree(profile = {}) %}
 <section class="linktree" data-component="linktree" itemscope itemtype="https://schema.org/Person">
-  
   <div class="linktree__container">
     <div class="linktree__header">
-      {% if avatar %}
-        <img class="linktree__avatar" src="{{ avatar }}" alt="" itemprop="image" />
-      {% endif %}
-      <h2 class="linktree__name" itemprop="name"></h2>
+      <img class="linktree__avatar"{% if profile.avatar %} src="{{ profile.avatar }}"{% endif %} alt="" itemprop="image">
+      <h2 class="linktree__name" itemprop="name">{{ profile.name or 'Profile name' }}</h2>
     </div>
-
     <div class="linktree__links">
-      {% for link in links %}
-        <a class="linktree__link" href="{{ link.url }}" data-purpose="{{ link.purpose or 'link' }}" itemprop="url">
-          {% if link.icon %}<span class="linktree__icon"></span>{% endif %}
-          <span class="linktree__text"></span>
-        </a>
+      {% for link in (profile.links if profile.links else [{}, {}, {}]) %}
+      <a class="linktree__link" href="{{ link.url or '#' }}" data-purpose="{{ link.purpose or 'link' }}" itemprop="url">
+        <span class="linktree__icon" aria-hidden="true"></span>
+        <span class="linktree__text">{{ link.text or 'Link label' }}</span>
+      </a>
       {% endfor %}
     </div>
   </div>
-
 </section>
+{% endmacro %}

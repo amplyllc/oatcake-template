@@ -1,36 +1,30 @@
+{% macro tiktokFeed(slides = []) %}
+{% set slides = slides if slides.length else [{}, {}] %}
 <section class="tiktok-feed" data-component="tiktok-feed">
-  
   <div class="tiktok-feed__viewport" data-scroll="snap-y">
-    
     {% for slide in slides %}
-      <article class="tiktok-feed__slide" data-index="{{ loop.index0 }}">
-        
-        <figure class="tiktok-feed__media">
-          <img src="{{ slide.image }}" alt="" loading="lazy" />
-        </figure>
-
-        <div class="tiktok-feed__overlay">
-          <div class="tiktok-feed__card">
-            <h3 class="tiktok-feed__title"></h3>
-            <p class="tiktok-feed__description"></p>
-          </div>
-
-          <div class="tiktok-feed__controls">
-            <button class="tiktok-feed__action" type="button" data-action="like">♡</button>
-            <button class="tiktok-feed__action" type="button" data-action="share">⤤</button>
-            <button class="tiktok-feed__action" type="button" data-action="more">⋯</button>
-          </div>
+    <article class="tiktok-feed__slide" data-index="{{ loop.index0 }}">
+      <figure class="tiktok-feed__media">
+        <img{% if slide.image %} src="{{ slide.image }}"{% endif %} alt="" loading="lazy">
+      </figure>
+      <div class="tiktok-feed__overlay">
+        <div class="tiktok-feed__card">
+          <h3 class="tiktok-feed__title">{{ slide.title or 'Slide title' }}</h3>
+          <p class="tiktok-feed__description">{{ slide.text or 'Slide description' }}</p>
         </div>
-
-      </article>
+        <div class="tiktok-feed__controls">
+          <button class="tiktok-feed__action" type="button" data-action="like" aria-label="Like">♡</button>
+          <button class="tiktok-feed__action" type="button" data-action="share" aria-label="Share">⤤</button>
+          <button class="tiktok-feed__action" type="button" data-action="more" aria-label="More">⋯</button>
+        </div>
+      </div>
+    </article>
     {% endfor %}
-
   </div>
-
   <div class="tiktok-feed__indicators">
     {% for slide in slides %}
-      <button class="tiktok-feed__dot" data-index="{{ loop.index0 }}" aria-label="Slide {{ loop.index }}"></button>
+    <button class="tiktok-feed__dot" type="button" data-index="{{ loop.index0 }}" aria-label="Slide {{ loop.index }}"></button>
     {% endfor %}
   </div>
-
 </section>
+{% endmacro %}

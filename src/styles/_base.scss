@@ -1,59 +1,39 @@
+// Layout tokens only. Theme (color, type, radius) belongs to the consuming site.
+$bp-sm: 40rem;
+$bp-md: 48rem;
+$bp-lg: 64rem;
+
 :root {
-  // ─ Colors ─
-  --bg: #0f0f0f;
-  --surface: #1a1a1a;
-  --surface-2: #222;
-  --border: #2a2a2a;
-  --text: #fbf5f3;
-  --text-muted: #777;
-  --accent: #e8622a;
-  --accent-dim: rgba(232, 98, 42, 0.12);
-  --success: #44ff88;
-  --error: #e8622a;
-
-  // ─ Typography ─
-  --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
-  --font-mono: 'DM Mono', monospace;
-  --text-sm: 12px;
-  --text-md: 14px;
-  --text-base: 16px;
-  --text-lg: 18px;
-  --text-xl: 20px;
-
-  // ─ Spacing ─
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 12px;
-  --space-lg: 16px;
-  --space-xl: 24px;
-  --space-2xl: 32px;
-
-  // ─ Radius ─
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-
-  // ─ Layout ─
-  --max-width: 1200px;
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 0.75rem;
+  --space-lg: 1rem;
+  --space-xl: 1.5rem;
+  --space-2xl: 2rem;
+  --max-width: 75rem;
   --container-pad: var(--space-lg);
+  --nav-height: 4rem;
 }
 
-// ─ Utilities ─
 .container {
   width: 100%;
   max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 var(--container-pad);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
 }
 
-.flex {
-  display: flex;
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
-.flex-col {
-  display: flex;
-  flex-direction: column;
-}
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
 
 .gap-xs { gap: var(--space-xs); }
 .gap-sm { gap: var(--space-sm); }
@@ -61,55 +41,25 @@
 .gap-lg { gap: var(--space-lg); }
 .gap-xl { gap: var(--space-xl); }
 
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.grid {
-  display: grid;
-}
-
-.grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-lg);
-
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
-  }
-}
-
+.grid-2,
 .grid-3 {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: var(--space-lg);
-
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
-  }
 }
 
-.mt-sm { margin-top: var(--space-sm); }
-.mt-md { margin-top: var(--space-md); }
+@media (min-width: $bp-sm) {
+  .grid-2, .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: $bp-lg) {
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
 .mt-lg { margin-top: var(--space-lg); }
 .mt-xl { margin-top: var(--space-xl); }
-
-.mb-sm { margin-bottom: var(--space-sm); }
-.mb-md { margin-bottom: var(--space-md); }
 .mb-lg { margin-bottom: var(--space-lg); }
 .mb-xl { margin-bottom: var(--space-xl); }
-
-.py-lg { padding-top: var(--space-lg); padding-bottom: var(--space-lg); }
-.py-xl { padding-top: var(--space-xl); padding-bottom: var(--space-xl); }
-
+.py-lg { padding-block: var(--space-lg); }
+.py-xl { padding-block: var(--space-xl); }
 .text-center { text-align: center; }
-.text-muted { color: var(--text-muted); }
-.text-accent { color: var(--accent); }
-
-.opacity-50 { opacity: 0.5; }

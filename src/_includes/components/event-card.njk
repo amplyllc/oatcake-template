@@ -1,31 +1,20 @@
-<article class="event-card" data-component="event-card" data-type="event" itemscope itemtype="https://schema.org/Event">
-  
-  {% if image %}
-    <figure class="event-card__image">
-      <img src="{{ image }}" alt="" loading="lazy" itemprop="image" />
-    </figure>
-  {% endif %}
-
+{#- Placeholders render only when called without a real item (showcase, <template>). -#}
+{% macro eventCard(item = {}) %}
+<article class="event-card" data-component="event-card" data-type="{{ item.type or 'event' }}" data-id="{{ item.id }}" data-updated="{{ item.updated_at }}" data-purpose="{{ item.metadata.purpose if item.metadata }}" itemscope itemtype="https://schema.org/Event">
+  <figure class="event-card__image" data-show="media.0.url"{{ item | hidden('media.0.url', true) }}>
+    <img data-slot-src="media.0.url" data-slot-alt="media.0.alt"{% if item | slot('media.0.url') %} src="{{ item | slot('media.0.url') }}"{% endif %} alt="{{ item | slot('media.0.alt') }}" loading="lazy" itemprop="image">
+  </figure>
   <div class="event-card__body">
-    <h3 class="event-card__title" itemprop="name"></h3>
-    
+    <span class="event-card__category" data-slot="metadata.purpose"{{ item | hidden('metadata.purpose') }}>{{ item | slot('metadata.purpose', 'Event category') }}</span>
+    <h3 class="event-card__title" data-slot="title" itemprop="name">{{ item | slot('title', 'Event title') }}</h3>
     <div class="event-card__meta">
-      <time class="event-card__date" itemprop="startDate" datetime=""></time>
-      <span class="event-card__location" itemprop="location"></span>
+      <time class="event-card__date" data-slot="starts_at" data-format="date" data-slot-datetime="starts_at" datetime="{{ item | slot('starts_at') }}" itemprop="startDate"{{ item | hidden('starts_at') }}>{{ item | slot('starts_at', 'Event start date and time', 'date') }}</time>
+      <span class="event-card__location" itemprop="location" itemscope itemtype="https://schema.org/Place"><span data-slot="location.name" itemprop="name"{{ item | hidden('location.name') }}>{{ item | slot('location.name', 'Event venue name') }}</span></span>
     </div>
-
-    <p class="event-card__description" itemprop="description"></p>
-
-    {% if category %}
-      <span class="event-card__category" data-category="{{ category }}"></span>
-    {% endif %}
-
+    <p class="event-card__description" data-slot="summary" itemprop="description"{{ item | hidden('summary') }}>{{ item | slot('summary', 'Event summary: one or two sentences about what happens') }}</p>
     <div class="event-card__actions">
-      <a class="event-card__link" href="#">Details</a>
-      {% if rsvp %}
-        <button class="event-card__rsvp" type="button" itemprop="rsvp">RSVP</button>
-      {% endif %}
+      <a class="event-card__link" data-show="url" data-slot-href="url" href="{{ item | slot('url', '#') }}" itemprop="url"{{ item | hidden('url') }}>Event details link</a>
     </div>
   </div>
-
 </article>
+{% endmacro %}

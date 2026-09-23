@@ -1,42 +1,40 @@
+{#- Named siteNav so it does not shadow the `nav` global data it renders. -#}
+{% macro siteNav(nav = {}, site = {}) %}
 <header class="nav" data-component="nav">
   <div class="nav__inner">
-
     <a class="nav__logo" href="/">
-      <span class="nav__logo-mark"></span>
-      <span class="nav__logo-text"></span>
+      <span class="nav__logo-mark" aria-hidden="true"></span>
+      <span class="nav__logo-text">{{ site.title or 'Site name' }}</span>
     </a>
-
-    <nav class="nav__links" aria-label="Primary navigation">
+    <nav class="nav__links" aria-label="Primary">
       <ul class="nav__list">
-        <li class="nav__item"><a class="nav__link" href="#"></a></li>
-        <li class="nav__item"><a class="nav__link" href="#"></a></li>
-        <li class="nav__item"><a class="nav__link" href="#"></a></li>
+        {% for link in nav.links %}
+        <li class="nav__item"><a class="nav__link" href="{{ link.url }}">{{ link.label or 'Nav link' }}</a></li>
+        {% endfor %}
       </ul>
     </nav>
-
     <div class="nav__actions">
-      <a class="nav__action nav__action--secondary" href="#"></a>
-      <a class="nav__action nav__action--primary" href="#"></a>
+      {% for action in nav.actions %}
+      <a class="nav__action nav__action--{{ action.style }}" href="{{ action.url }}">{{ action.label or 'Nav action' }}</a>
+      {% endfor %}
     </div>
-
     <button class="nav__toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-mobile">
       <span class="nav__toggle-bar"></span>
       <span class="nav__toggle-bar"></span>
       <span class="nav__toggle-bar"></span>
     </button>
-
   </div>
-
   <div class="nav__mobile" id="nav-mobile" hidden>
     <ul class="nav__mobile-list">
-      <li class="nav__mobile-item"><a class="nav__mobile-link" href="#"></a></li>
-      <li class="nav__mobile-item"><a class="nav__mobile-link" href="#"></a></li>
-      <li class="nav__mobile-item"><a class="nav__mobile-link" href="#"></a></li>
+      {% for link in nav.links %}
+      <li class="nav__mobile-item"><a class="nav__mobile-link" href="{{ link.url }}">{{ link.label or 'Nav link' }}</a></li>
+      {% endfor %}
     </ul>
     <div class="nav__mobile-actions">
-      <a class="nav__action nav__action--secondary" href="#"></a>
-      <a class="nav__action nav__action--primary" href="#"></a>
+      {% for action in nav.actions %}
+      <a class="nav__action nav__action--{{ action.style }}" href="{{ action.url }}">{{ action.label or 'Nav action' }}</a>
+      {% endfor %}
     </div>
   </div>
-
 </header>
+{% endmacro %}

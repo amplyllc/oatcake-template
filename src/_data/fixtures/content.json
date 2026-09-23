@@ -1,0 +1,104 @@
+[
+  {
+    "id": "0b6f2c1e-3a51-4f0e-9d7a-1c2e5f8a9b01",
+    "type": "hero",
+    "slug": "fall-season",
+    "title": "The fall season starts here",
+    "summary": "Live music, trivia and open mic nights every week through December.",
+    "url": "/events/",
+    "starts_at": null,
+    "ends_at": null,
+    "location": null,
+    "media": [
+      { "url": "https://example.com/media/fall-season.jpg", "alt": "Crowd in front of a small stage", "width": 1600, "height": 900 }
+    ],
+    "metadata": { "purpose": "seasonal", "layout": "two-column" },
+    "updated_at": "2026-09-18T15:04:00Z"
+  },
+  {
+    "id": "5d2a9e47-8c13-4b6a-a0f2-7e9b3c4d5e02",
+    "type": "announcement",
+    "slug": "early-doors-friday",
+    "title": "Doors open at 6 pm on Fridays this month",
+    "summary": null,
+    "url": null,
+    "starts_at": null,
+    "ends_at": null,
+    "location": null,
+    "media": [],
+    "metadata": { "purpose": "notice" },
+    "updated_at": "2026-09-20T09:30:00Z"
+  },
+  {
+    "id": "a1c3e5f7-2b4d-4e6f-8a0c-9d1e3f5a7b03",
+    "type": "event",
+    "slug": "late-night-jazz-trio",
+    "title": "Late-night jazz trio",
+    "summary": "Two sets of standards and originals. No cover before 9 pm.",
+    "url": "/events/late-night-jazz-trio/",
+    "starts_at": "2027-10-08T00:00:00Z",
+    "ends_at": "2027-10-08T03:00:00Z",
+    "location": { "name": "Main room", "address": "100 Example St, Springfield" },
+    "media": [
+      { "url": "https://example.com/media/jazz-trio.jpg", "alt": "Upright bass and drum kit under stage lights", "width": 1200, "height": 675 }
+    ],
+    "metadata": { "purpose": "music" },
+    "updated_at": "2026-09-21T18:12:44Z"
+  },
+  {
+    "id": "c7e9a1b3-4d5f-4a6b-9c8d-2e3f4a5b6c04",
+    "type": "event",
+    "slug": "community-trivia",
+    "title": "Community trivia night",
+    "summary": "Teams of up to six. Prizes for the top three tables.",
+    "url": "/events/community-trivia/",
+    "starts_at": "2027-10-14T23:30:00Z",
+    "ends_at": "2027-10-15T01:30:00Z",
+    "location": { "name": "Back room", "address": "100 Example St, Springfield" },
+    "media": [],
+    "metadata": { "purpose": "trivia" },
+    "updated_at": "2026-09-19T11:00:00Z"
+  },
+  {
+    "id": "e2f4a6b8-5c7d-4e8f-a1b2-3c4d5e6f7a05",
+    "type": "event",
+    "slug": "open-mic",
+    "title": "Open mic",
+    "summary": "Sign-up sheet goes up at 7 pm. Ten minutes per act.",
+    "url": "/events/open-mic/",
+    "starts_at": "2027-10-21T23:00:00Z",
+    "ends_at": null,
+    "location": { "name": "Main room", "address": "100 Example St, Springfield" },
+    "media": [],
+    "metadata": { "purpose": "open-mic" },
+    "updated_at": "2026-09-17T08:45:00Z"
+  },
+  {
+    "id": "f9a1b2c3-6d7e-4f8a-b9c0-4d5e6f7a8b06",
+    "type": "offer",
+    "slug": "member-early-access",
+    "title": "Members get early access",
+    "summary": "Reserve seats 48 hours before public release.",
+    "url": "/membership/",
+    "starts_at": null,
+    "ends_at": "2027-12-31T23:59:59Z",
+    "location": null,
+    "media": [],
+    "metadata": { "purpose": "membership" },
+    "updated_at": "2026-09-15T16:20:00Z"
+  },
+  {
+    "id": "3b4c5d6e-7f8a-4b9c-8d0e-5f6a7b8c9d07",
+    "type": "link",
+    "slug": "follow-updates",
+    "title": "Follow for schedule updates",
+    "summary": null,
+    "url": "https://example.com/follow",
+    "starts_at": null,
+    "ends_at": null,
+    "location": null,
+    "media": [],
+    "metadata": { "purpose": "social" },
+    "updated_at": "2026-09-10T12:00:00Z"
+  }
+]

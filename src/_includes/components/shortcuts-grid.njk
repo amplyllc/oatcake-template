@@ -1,14 +1,12 @@
+{% macro shortcutsGrid(actions = []) %}
 <section class="shortcuts-grid" data-component="shortcuts-grid">
-  
   <div class="shortcuts-grid__container">
-    
-    {% for action in actions %}
-      <button class="shortcuts-grid__item" data-action="{{ action.id }}" type="button">
-        <span class="shortcuts-grid__icon"></span>
-        <span class="shortcuts-grid__label"></span>
-      </button>
+    {% for action in (actions if actions.length else [{}, {}, {}, {}]) %}
+    <button class="shortcuts-grid__item" type="button" data-action="{{ action.id }}">
+      <span class="shortcuts-grid__icon" aria-hidden="true"></span>
+      <span class="shortcuts-grid__label">{{ action.label or 'Shortcut label' }}</span>
+    </button>
     {% endfor %}
-
   </div>
-
 </section>
+{% endmacro %}
