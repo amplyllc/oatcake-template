@@ -1,25 +1,111 @@
-// Layout tokens only. Theme (color, type, radius) belongs to the consuming site.
-$bp-sm: 40rem;
-$bp-md: 48rem;
-$bp-lg: 64rem;
-
-:root {
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 0.75rem;
-  --space-lg: 1rem;
-  --space-xl: 1.5rem;
-  --space-2xl: 2rem;
-  --max-width: 75rem;
-  --container-pad: var(--space-lg);
-  --nav-height: 4rem;
-}
+// Structural utility layer. Every component file should reach for these combinators before
+// writing its own display/flex/grid rule — one class here replacing a dozen repeated
+// declarations in _layout.scss is the whole point of this file.
+@use 'variables' as *;
 
 .container {
   width: 100%;
   max-width: var(--max-width);
   margin-inline: auto;
   padding-inline: var(--container-pad);
+}
+
+// ─ Flow combinators: .wrap (block, full-width) → .row (horizontal) / .column (vertical) ─
+.wrap {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+// Row that stacks to column below $bp-md — the single responsive primitive most components need.
+.row-md {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+
+  @media (min-width: $bp-md) {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+.wrap-items {
+  flex-wrap: wrap;
+}
+
+.grow {
+  flex: 1;
+}
+
+// ─ Gap scale (opt-in override; .row/.column default to var(--gap)) ─
+.gap-xs { gap: var(--space-xs); }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+.gap-xl { gap: var(--space-xl); }
+.gap-0  { gap: 0; }
+
+// ─ Grid ─
+.grid-2,
+.grid-3,
+.grid-4 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+}
+
+.grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(16rem, 100%), 1fr));
+  gap: var(--gap);
+}
+
+@media (min-width: $bp-sm) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: $bp-lg) {
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+// ─ Spacing ─
+.mt-lg { margin-top: var(--space-lg); }
+.mt-xl { margin-top: var(--space-xl); }
+.mb-lg { margin-bottom: var(--space-lg); }
+.mb-xl { margin-bottom: var(--space-xl); }
+.py-lg { padding-block: var(--space-lg); }
+.py-xl { padding-block: var(--space-xl); }
+.py-2xl { padding-block: var(--space-2xl); }
+
+// ─ Type ─
+.text-center { text-align: center; }
+.text-muted { color: var(--text-muted); }
+
+// ─ Placeholder fill (greyscale depth for empty media/avatar blocks) ─
+.placeholder-fill {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
 }
 
 .visually-hidden {
@@ -30,36 +116,3 @@ $bp-lg: 64rem;
   clip-path: inset(50%);
   white-space: nowrap;
 }
-
-.flex { display: flex; }
-.flex-col { display: flex; flex-direction: column; }
-.flex-center { display: flex; align-items: center; justify-content: center; }
-
-.gap-xs { gap: var(--space-xs); }
-.gap-sm { gap: var(--space-sm); }
-.gap-md { gap: var(--space-md); }
-.gap-lg { gap: var(--space-lg); }
-.gap-xl { gap: var(--space-xl); }
-
-.grid-2,
-.grid-3 {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-lg);
-}
-
-@media (min-width: $bp-sm) {
-  .grid-2, .grid-3 { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (min-width: $bp-lg) {
-  .grid-3 { grid-template-columns: repeat(3, 1fr); }
-}
-
-.mt-lg { margin-top: var(--space-lg); }
-.mt-xl { margin-top: var(--space-xl); }
-.mb-lg { margin-bottom: var(--space-lg); }
-.mb-xl { margin-bottom: var(--space-xl); }
-.py-lg { padding-block: var(--space-lg); }
-.py-xl { padding-block: var(--space-xl); }
-.text-center { text-align: center; }

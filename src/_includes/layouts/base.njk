@@ -2,18 +2,22 @@
 {% from "components/registry.njk" import templates -%}
 <!DOCTYPE html>
 <html lang="{{ lang or site.lang }}" dir="{{ direction or 'ltr' }}">
-<head>
-  {% include "head.njk" %}
-</head>
-<body>
-  {{ siteNav(nav, site) }}
-  <main id="main">
-    {{ content | safe }}
-  </main>
-  {% include "partials/footer.njk" %}
-  {% if hydrate and api.base %}
-  {{ templates() }}
-  <script src="/assets/js/hydrate.js" defer></script>
-  {% endif %}
-</body>
+  <head>
+    {% include "head.njk" %}
+  </head>
+  <body>
+
+    {{ siteNav(nav, site) }}
+
+    <main id="main">
+      {{ content | safe }}
+    </main>
+
+    {% include "partials/footer.njk" %}
+
+    {% if hydrate and api.base %}
+      {{ templates() }}
+      <script src="/assets/js/hydrate.js" defer></script>
+    {% endif %}
+  </body>
 </html>

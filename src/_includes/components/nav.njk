@@ -1,36 +1,36 @@
-{#- Named siteNav so it does not shadow the `nav` global data it renders. -#}
 {% macro siteNav(nav = {}, site = {}) %}
 <header class="nav" data-component="nav">
-  <div class="nav__inner">
-    <a class="nav__logo" href="/">
-      <span class="nav__logo-mark" aria-hidden="true"></span>
+  <input class="nav__toggle-input" type="checkbox" id="nav-toggle">
+  <div class="nav__inner row">
+    <a class="nav__logo row gap-sm" href="/">
+      <span class="nav__logo-mark placeholder-fill" aria-hidden="true"></span>
       <span class="nav__logo-text">{{ site.title or 'Site name' }}</span>
     </a>
     <nav class="nav__links" aria-label="Primary">
-      <ul class="nav__list">
+      <ul class="nav__list row gap-md">
         {% for link in nav.links %}
         <li class="nav__item"><a class="nav__link" href="{{ link.url }}">{{ link.label or 'Nav link' }}</a></li>
         {% endfor %}
       </ul>
     </nav>
-    <div class="nav__actions">
+    <div class="nav__actions row gap-md">
       {% for action in nav.actions %}
       <a class="nav__action nav__action--{{ action.style }}" href="{{ action.url }}">{{ action.label or 'Nav action' }}</a>
       {% endfor %}
     </div>
-    <button class="nav__toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-mobile">
+    <label class="nav__toggle" for="nav-toggle" aria-label="Menu">
       <span class="nav__toggle-bar"></span>
       <span class="nav__toggle-bar"></span>
       <span class="nav__toggle-bar"></span>
-    </button>
+    </label>
   </div>
-  <div class="nav__mobile" id="nav-mobile" hidden>
-    <ul class="nav__mobile-list">
+  <div class="nav__mobile column" id="nav-mobile">
+    <ul class="nav__mobile-list column gap-md">
       {% for link in nav.links %}
       <li class="nav__mobile-item"><a class="nav__mobile-link" href="{{ link.url }}">{{ link.label or 'Nav link' }}</a></li>
       {% endfor %}
     </ul>
-    <div class="nav__mobile-actions">
+    <div class="nav__mobile-actions column gap-md">
       {% for action in nav.actions %}
       <a class="nav__action nav__action--{{ action.style }}" href="{{ action.url }}">{{ action.label or 'Nav action' }}</a>
       {% endfor %}
